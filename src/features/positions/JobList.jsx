@@ -1,16 +1,15 @@
 // import data from '../mock/data.json';
 import { JobPosition } from './JobPosition';
-import {useSelector} from 'react-redux';
-import {selectVisiblePositions} from '../store/positions/position-selectors';
-import {selectFilters} from '../store/filters/filters-selectors';
 import { useDispatch } from 'react-redux';
-import {addFilter} from '../store/filters/filters-actions';
+import {addFilter} from '../filter/filter-slice';
+import { usePositions } from './use-positions';
+import { useFetchPositions } from './use-fetch-positions';
 
 const JobList = () => {
+  useFetchPositions();
+  const positions = usePositions();
   const dispatch = useDispatch();
-  const currFilters = useSelector(selectFilters);
-  const positions = useSelector(state => 
-    selectVisiblePositions(state, currFilters));
+  
   const handleAddFilter = (filter) => {
     dispatch(addFilter(filter))
   }
